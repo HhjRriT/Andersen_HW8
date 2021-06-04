@@ -1,0 +1,40 @@
+
+.wrapper {
+    background-color: lightgrey;
+    margin: 0 auto;
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen {
+    display: flex;
+    justify-content: flex-end;
+    background-color: white;
+    font-size: 3rem;
+    margin: 3px;
+    border: black 1px solid;
+    min-height: 3.5rem;
+}
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    min-width: 60%;
+    justify-content: space-between;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+}
+
+button {
+    font-size: 1.5rem;
+    margin: 1px;
+    min-height: 50px;
+    min-width: 24%;
+}
