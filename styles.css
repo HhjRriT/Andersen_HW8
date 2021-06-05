@@ -16,6 +16,7 @@
     margin: 3px;
     border: black 1px solid;
     min-height: 3.5rem;
+    min-width: 60%;
 }
 
 .buttons {

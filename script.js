@@ -2,11 +2,14 @@ let screen  = (document.body.querySelector(".screen"))
 const btns  = document.body.querySelector(".buttons")
 let res = ""
 let value = ""
+let lastValue = ""
+let lastOper = ""
 let operator = ""
 const maxInput = 10
 
 function updateScreen(num) {
     if (!num) return  screen.innerText = res
+    if (num.length > maxInput) return  screen.innerText = (+num).toExponential(maxInput - 5)
     screen.innerText = num
 }
 
@@ -28,18 +31,28 @@ function renderBtns (arr) {
 btns.addEventListener("click", (event) => {
     if (event.target.tagName === "BUTTON") {
         if (+event.target.innerText >= 0 && +event.target.innerText <= 9) return  numbers(event.target.innerText)
+        if (event.target.innerText === "=") {
+            if (!value && !lastValue) return res = ""
+            if (!value && lastValue) {
+                console.log("yes")
+                value = lastValue
+                operator = lastOper
+                return operation()
+            }
+        }
         operation(event.target.innerText)
     }
 
 })
 
 btns.addEventListener("click", (event) => {
-    console.log(res)
-    console.log(operator)
-    console.log(value)
+    console.log("result     -",res)
+    console.log("operator   -",operator)
+    console.log("value      -",value)
+    console.log("lastValue  -", lastValue)
+    console.log("lastOper  -", lastOper)
+    console.log("---------------------")
 })
-
-
 
 
 function numbers(num) {
@@ -49,6 +62,12 @@ function numbers(num) {
 }
 
 function operation(oper) {
+    if (!res) {
+        if (oper === "-") {
+            res += "-"
+            return updateScreen("-")
+        }
+    }
     if (!operator) {
         return operator = oper
     }
@@ -56,29 +75,35 @@ function operation(oper) {
         return operator = oper
     }
     if (operator === "+") {
-        updateScreen(res = +res + +value)
-        value = ""
+        updateScreen(res = +res + +value + "")
+        lastOper = operator
     }
     if (operator === "-") {
-        updateScreen(res = +res - +value)
-        value = ""
+        updateScreen(res = +res - +value + "")
+        lastOper = operator
+
     }
     if (operator === "x") {
-        updateScreen(res = +res * +value)
-        value = "" }
+        updateScreen(res = +res * +value + "")
+        lastOper = operator
+         }
 
     if (operator === "/") {
-        updateScreen(res = +res / +value)
-        value = "" }
+        updateScreen(res = +res / +value + "")
+        lastOper = operator
+       }
 
     if (operator === "=") {
-        updateScreen(operation(operator))
-        value = ""
         operator = ""
+        return updateScreen(operation(operator))
     }
-
+    lastValue = value
+    value = ""
 }
 
+function extra () {
+
+}
 
 updateScreen()
 renderBtns(allButons)
