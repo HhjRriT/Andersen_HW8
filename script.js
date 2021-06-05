@@ -90,21 +90,29 @@ function operation(oper) {
     }
 
     if (operator === "+") {
-        updateScreen(res = +res + +value + "")
+        res = +res / +value
+        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        updateScreen(res)
         lastOper = operator
 
     }
     if (operator === "-") {
-        updateScreen(res = +res - +value + "")
+        res = +res / +value
+        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        updateScreen(res)
         lastOper = operator
     }
     if (operator === "x") {
-        updateScreen(res = +res * +value + "")
+        res = +res / +value
+        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        updateScreen(res)
         lastOper = operator
     }
     if (operator === "/") {
         if (value === "0") return updateScreen("error")
-        updateScreen(res = +res / +value + "")
+        res = +res / +value
+        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        updateScreen(res)
         lastOper = operator
     }
 
@@ -115,8 +123,8 @@ function operation(oper) {
 
 function dot() {
     if (!operator) {
-        updateScreen((res.endsWith(".")) ? res : res += ".")
-    } else if (value.length < maxInput) updateScreen((value.endsWith(".")) ? value : value += ".")
+        updateScreen((res.includes(".")) ? res : res += ".")
+    } else if (value.length < maxInput) updateScreen((value.includes(".")) ? value : value += ".")
 
 }
 
