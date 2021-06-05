@@ -90,28 +90,29 @@ function operation(oper) {
     }
 
     if (operator === "+") {
-        res = +res / +value
-        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        console.log("yes")
+        res = +res + +value
+        res = (Math.floor(res * 1_000_000_00) / 1_000_000_00) + ""
         updateScreen(res)
         lastOper = operator
 
     }
     if (operator === "-") {
-        res = +res / +value
-        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        res = +res - +value
+        res = (Math.floor(res * 1_000_000_00) / 1_000_000_00) + ""
         updateScreen(res)
         lastOper = operator
     }
     if (operator === "x") {
-        res = +res / +value
-        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        res = +res * +value
+        res = (Math.floor(res * 1_000_000_00) / 1_000_000_00) + ""
         updateScreen(res)
         lastOper = operator
     }
     if (operator === "/") {
         if (value === "0") return updateScreen("error")
         res = +res / +value
-        res = Math.floor(res * 1_000_000_00) / 1_000_000_00 + ""
+        res = (Math.floor(res * 1_000_000_00) / 1_000_000_00) + ""
         updateScreen(res)
         lastOper = operator
     }
