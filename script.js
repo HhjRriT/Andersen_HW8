@@ -52,6 +52,17 @@ btns.addEventListener("click", (event) => {
     }
 })
 
+btns.addEventListener("click", (event) => {
+    console.log("result     -", res)
+    console.log("operator   -", operator)
+    console.log("value      -", value)
+    console.log("lastValue  -", lastValue)
+    console.log("lastOper  -", lastOper)
+    console.log(fin)
+    console.log("---------------------")
+})
+
+
 function numbers(num) {
     if (operator === "=") fin = true
     if (fin) {
@@ -77,6 +88,7 @@ function operation(oper) {
     if (!value) {
         return operator = oper
     }
+
     if (operator === "+") {
         res = +res + +value
         res = (Math.floor(res * 1_000_000_00) / 1_000_000_00) + ""
@@ -103,6 +115,7 @@ function operation(oper) {
         updateScreen(res)
         lastOper = operator
     }
+
     operator = oper
     lastValue = value
     value = ""
@@ -110,8 +123,9 @@ function operation(oper) {
 
 function dot() {
     if (!operator) {
-        updateScreen((res.includes(".")) ? res : res += ".")
-    } else if (value.length < maxInput) updateScreen((value.includes(".")) ? value : value += ".")
+        updateScreen((res.includes(".")) ? res : res += "0.")
+    } else if (value.length < maxInput) updateScreen((value.includes(".")) ? value : value += "0.")
+
 }
 
 updateScreen("")
