@@ -14,6 +14,7 @@ function updateScreen(num) {
         res = ""
         value = ""
         operator = ""
+        return
     }
     if (num.length > maxInput) return screen.innerText = (+num).toExponential(maxInput - 5)
     screen.innerText = num
@@ -42,9 +43,12 @@ btns.addEventListener("click", (event) => {
             if (!value && lastValue) {
                 value = lastValue
                 operator = lastOper
+                fin = true
                 return operation()
             }
         }
+        if (event.target.innerText === ".") return dot()
+
         operation(event.target.innerText)
     }
 })
@@ -61,6 +65,7 @@ btns.addEventListener("click", (event) => {
 
 
 function numbers(num) {
+    console.log(num)
     if (fin) {
         fin = false
         res = ""
@@ -68,9 +73,9 @@ function numbers(num) {
         operator = ""
         lastOper = ""
     }
-    if (!operator) {
-        res.length < maxInput && updateScreen(res = res + num)
-    } else if (value.length < maxInput) updateScreen(value = value + num)
+    if (fin || !operator) {
+        updateScreen((res === "0" && num ==="0") ? num : res ==="0" ? res = num : res = res + num)
+    } else if (value.length < maxInput) updateScreen((value === "0" && num ==="0") ? num : value ==="0" ? value = num : value = value + num)
 }
 
 function operation(oper) {
@@ -80,35 +85,39 @@ function operation(oper) {
             return updateScreen("-")
         }
     }
-    if (!operator) {
-        return operator = oper
-    }
     if (!value) {
         return operator = oper
     }
+
     if (operator === "+") {
         updateScreen(res = +res + +value + "")
-        fin = true
         lastOper = operator
+
     }
     if (operator === "-") {
         updateScreen(res = +res - +value + "")
-        fin = true
         lastOper = operator
     }
     if (operator === "x") {
         updateScreen(res = +res * +value + "")
-        fin = true
         lastOper = operator
     }
     if (operator === "/") {
         if (value === "0") return updateScreen("error")
         updateScreen(res = +res / +value + "")
-        fin = true
         lastOper = operator
     }
+
+    operator = oper
     lastValue = value
     value = ""
+}
+
+function dot() {
+    if (!operator) {
+        updateScreen((res.endsWith(".")) ? res : res += ".")
+    } else if (value.length < maxInput) updateScreen((value.endsWith(".")) ? value : value += ".")
+
 }
 
 updateScreen("")
