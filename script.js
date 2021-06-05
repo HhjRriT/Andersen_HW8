@@ -9,8 +9,8 @@ let fin = false
 const maxInput = 10
 
 function updateScreen(num) {
-    if (num === "error") {
-        screen.innerText = "Error /0"
+    if (num === "error" || !Number.isFinite(+num)) {
+        screen.innerText = "Error"
         res = ""
         value = ""
         operator = ""
@@ -73,7 +73,7 @@ function numbers(num) {
         lastOper = ""
     }
     if (fin || !operator) {
-        updateScreen((res === "0" && num ==="0") ? num : res ==="0" ? res = num : res = res + num)
+        if (res.length < maxInput) updateScreen((res === "0" && num ==="0") ? num : res ==="0" ? res = num : res = res + num)
     } else if (value.length < maxInput) updateScreen((value === "0" && num ==="0") ? num : value ==="0" ? value = num : value = value + num)
 }
 
@@ -123,8 +123,8 @@ function operation(oper) {
 
 function dot() {
     if (!operator) {
-        updateScreen((res.includes(".")) ? res : res += "0.")
-    } else if (value.length < maxInput) updateScreen((value.includes(".")) ? value : value += "0.")
+        updateScreen((res.includes(".")) ? res : (res.length) ? res += "." : res += "0.")
+    } else if (value.length < maxInput) updateScreen((value.includes(".")) ? value : (value.length) ? value += "." : value += "0.")
 
 }
 
